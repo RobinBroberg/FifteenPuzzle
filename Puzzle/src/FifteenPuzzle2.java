@@ -77,7 +77,7 @@ public class FifteenPuzzle2 extends JFrame implements ActionListener {
         }
         if (e.getSource()==winButton){
 
-        }
+            }
 
         if (e.getSource() instanceof JButton && e.getSource() != resetButton) {
             ((JButton) e.getSource()).setBackground(Color.RED);
