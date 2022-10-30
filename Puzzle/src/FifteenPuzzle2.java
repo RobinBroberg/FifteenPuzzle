@@ -1,14 +1,19 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.*;
 
 public class FifteenPuzzle2 extends JFrame implements ActionListener {
-    protected JButton[] buttons;
-    protected JPanel panel = new JPanel();
-    protected JButton resetButton = new JButton("RESET");
-    protected int randomOne = ThreadLocalRandom.current().nextInt(1, 16);
+    private final JButton[] buttons;
+    private final JPanel panel = new JPanel();
+    private final JButton resetButton = new JButton("RESET");
+    private final int randomOne = ThreadLocalRandom.current().nextInt(1, 16);
+
+    // protected List<JButton> list = new ArrayList<>();
 
     public FifteenPuzzle2() {
 
@@ -29,20 +34,20 @@ public class FifteenPuzzle2 extends JFrame implements ActionListener {
     }
 
     public void mixAndAddButtons() {
-        if (buttons != null) {
-            for (int i = 0; i < buttons.length; i++) {
-                int i1 = (int) (Math.random() * buttons.length);
-                JButton temp = buttons[i];
-                buttons[i] = buttons[i1];
-                buttons[i1] = temp;
+        try {
+            if (buttons != null) {
+                Collections.shuffle(List.of(buttons));
+                for (JButton button : buttons) {
+                    panel.add(button);
+                    panel.revalidate();
+                    panel.repaint();
+                }
             }
-            for (int i = 0; i < buttons.length; i++) {
-                panel.add(buttons[i]);
-                panel.revalidate();
-                panel.repaint();
-            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
+
     public JButton[] makeButtons() {
         JButton[] buttons = new JButton[16];
         int j = 1;
