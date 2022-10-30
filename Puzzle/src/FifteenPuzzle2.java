@@ -34,18 +34,15 @@ public class FifteenPuzzle2 extends JFrame implements ActionListener {
     }
 
     public void mixAndAddButtons() {
-        try {
-            if (buttons != null) {
-                Collections.shuffle(List.of(buttons));
-                for (JButton button : buttons) {
-                    panel.add(button);
-                    panel.revalidate();
-                    panel.repaint();
-                }
+        if (buttons != null) {
+            Collections.shuffle(List.of(buttons));
+            for (JButton button : buttons) {
+                panel.add(button);
+                panel.revalidate();
+                panel.repaint();
             }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
         }
+
     }
 
     public JButton[] makeButtons() {
