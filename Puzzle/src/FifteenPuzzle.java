@@ -14,7 +14,7 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
 
     public FifteenPuzzle() {
 
-        setTitle("PuzzleGame");
+        setTitle("FifteenPuzzle");
         panel.setLayout(new GridLayout(4, 4));
         buttons = makeButtons();
         add(panel);
@@ -27,7 +27,6 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         mixAndAddButtons();
-
     }
 
     public void mixAndAddButtons() {
