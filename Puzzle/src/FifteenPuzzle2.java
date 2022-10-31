@@ -9,7 +9,6 @@ import javax.swing.*;
 public class FifteenPuzzle2 extends JFrame implements ActionListener {
     private final JButton[] buttons;
     private final JPanel mainPanel = new JPanel();
-    private final JPanel southPanel = new JPanel();
     private final JButton resetButton = new JButton("RESET");
     private final JButton winButton = new JButton("WIN");
     private final int randomOne = ThreadLocalRandom.current().nextInt(1, 16);
@@ -20,6 +19,7 @@ public class FifteenPuzzle2 extends JFrame implements ActionListener {
         mainPanel.setLayout(new GridLayout(4, 4));
         buttons = makeButtons();
         add(mainPanel);
+        JPanel southPanel = new JPanel();
         add(southPanel, BorderLayout.SOUTH);
         southPanel.add(resetButton);
         southPanel.add(winButton);
