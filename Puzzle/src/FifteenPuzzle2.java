@@ -59,7 +59,8 @@ public class FifteenPuzzle2 extends JFrame implements ActionListener {
                 JButton button = new JButton(String.valueOf(j));
                 buttons[i] = button;
                 button.setFont(new Font(null, Font.BOLD, 20));
-                button.setBackground(Color.cyan);
+                button.setBackground(new Color(75,0,130));
+                button.setForeground(Color.BLACK);
                 button.addActionListener(this);
                 j++;
             }
@@ -72,7 +73,7 @@ public class FifteenPuzzle2 extends JFrame implements ActionListener {
         if (e.getSource() == resetButton) {
             mixAndAddButtons();
             for (int i = 0; i < buttons.length; i++) {
-                buttons[i].setBackground(Color.CYAN);
+                buttons[i].setBackground(new Color(75,0,130));
             }
         }
         if (e.getSource()==winButton){
