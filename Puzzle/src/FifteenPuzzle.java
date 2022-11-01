@@ -35,7 +35,7 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
            for (int i = 0; i < tiles.length; i++) {
                 for (int y = 0; y < tiles.length; y++) {
                     int i1 = (int) (Math.random() * tiles.length);
-                    int j1 = (int) (Math.random() * tiles[y].length);
+                    int j1 = (int) (Math.random() * tiles.length);
                     Tile temp = tiles[i][y];
                     tiles[i][y] = tiles[i1][j1];
                     tiles[i1][j1] = temp;
@@ -69,7 +69,6 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
         }
         return tiles;
     }
-
     // Searched the array of tiles for tile number and returns an array of the indexes
     // If the tile number is not found, returns an empty array
     private int[] searchArray(String tileNumber) {
@@ -119,7 +118,7 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
         }
     }
     public void victoryScreen(){
-        JOptionPane.showMessageDialog(null, "You won!!!");
+        JOptionPane.showMessageDialog(null, "Congratulations you solved it!");
 
         }
 

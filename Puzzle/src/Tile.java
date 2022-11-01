@@ -9,7 +9,6 @@ public class Tile {
         number = Number;
         button = new JButton(String.valueOf(number));
         initializeButton();
-
     }
     private void initializeButton(){
         button.setText(String.valueOf(number));
@@ -18,7 +17,7 @@ public class Tile {
         }
         else {
             button.setFont(new Font(null, Font.BOLD, 20));
-            button.setBackground(Color.cyan);
+            button.setBackground(new Color(240,248,255));
             button.setVisible(true);
         }
     }
