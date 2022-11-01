@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class FifteenPuzzle extends JFrame implements ActionListener {
 
-    private final Tile[][] tiles;
+    private Tile[][] tiles = new Tile[4][4];
     private final JPanel panel = new JPanel();
     private final JButton resetButton = new JButton("RESET");
     private final int randomOne = ThreadLocalRandom.current().nextInt(1, 4);
