@@ -8,7 +8,9 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
 
     private Tile[][] tiles = new Tile[4][4];
     private final JPanel panel = new JPanel();
+    private final JPanel southPanel = new JPanel();
     private final JButton resetButton = new JButton("RESET");
+    private final JButton winButton = new JButton("WIN");
     private final int randomOne = ThreadLocalRandom.current().nextInt(1, 4);
     private final int randomTwo = ThreadLocalRandom.current().nextInt(1, 4);
 
@@ -19,8 +21,11 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
         panel.setLayout(new GridLayout(4, 4));
         tiles = makeTiles();
         add(panel);
-        add(resetButton, BorderLayout.SOUTH);
+        add(southPanel, BorderLayout.SOUTH);
+        southPanel.add(resetButton);
+        southPanel.add(winButton);
         resetButton.addActionListener(this);
+        winButton.addActionListener(this);
         panel.setBackground(Color.BLACK);
         pack();
         setSize(500, 500);
@@ -121,7 +126,10 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
         if (e.getSource() == resetButton) {
             shuffleTiles();
         }
-        if (e.getSource() instanceof JButton button && e.getSource() != resetButton) {
+        if (e.getSource() == winButton){
+            winTheGame();
+        }
+        if (e.getSource() instanceof JButton button && e.getSource() != resetButton && e.getSource() != winButton) {
             int[] clickedIndex = searchArray(button.getText());
             int[] hiddenIndex = searchArray("16");
             int absColumnDiff = Math.abs(hiddenIndex[1] - clickedIndex[1]);
@@ -138,6 +146,37 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
                 Tile hidden = tiles[hiddenIndex[0]][hiddenIndex[1]];
                 switchTile(clicked, hidden);
             }
+        }
+    }
+    private Tile[][] makeWinTiles() {
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 4; j++){
+                if (i == 3 && j == 3) {
+                    Tile hiddenTile = new Tile(16);
+                    tiles[i][j] = hiddenTile;
+                    hiddenTile.getButton().addActionListener(this);
+                } else {
+                    Tile tile = new Tile((i * 4) + j + 1);
+                    tiles[i][j] = tile;
+                    tile.getButton().addActionListener(this);
+                }
+            }
+        }
+        return tiles;
+    }
+
+    private void winTheGame(){
+        tiles = makeWinTiles();
+        panel.removeAll();
+        for (int i = 0; i < tiles.length; i++) {
+            for (int y = 0; y < tiles.length; y++) {
+                panel.add(tiles[i][y].getButton());
+                panel.revalidate();
+                panel.repaint();
+            }
+        }
+        if (isSolved()){
+            victoryScreen();
         }
     }
 
