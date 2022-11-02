@@ -27,12 +27,12 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        mixAndAddButtons();
+        shuffleTiles();
     }
 
-    public void mixAndAddButtons() {
+    public void shuffleTiles() {
         if (tiles != null) {
-           for (int i = 0; i < tiles.length; i++) {
+            for (int i = 0; i < tiles.length; i++) {
                 for (int y = 0; y < tiles.length; y++) {
                     int i1 = (int) (Math.random() * tiles.length);
                     int j1 = (int) (Math.random() * tiles.length);
@@ -69,6 +69,7 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
         }
         return tiles;
     }
+
     // Searched the array of tiles for tile number and returns an array of the indexes
     // If the tile number is not found, returns an empty array
     private int[] searchArray(String tileNumber) {
@@ -84,47 +85,24 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
         }
         return result;
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == resetButton) {
-            mixAndAddButtons();
-        }
-        if (e.getSource() instanceof JButton button && e.getSource() != resetButton) {
-            int[] clickedIndex = searchArray(button.getText());
-            int[] hiddenIndex = searchArray("16");
-            int absColumnDiff = Math.abs(hiddenIndex[1] - clickedIndex[1]);
-            int absRowDiff = Math.abs(hiddenIndex[0] - clickedIndex[0]);
-            //same row, adjacent column
-            if (clickedIndex[0] == hiddenIndex[0] && absColumnDiff == 1){
-                Tile clicked = tiles[clickedIndex[0]][clickedIndex[1]];
-                Tile hidden = tiles[hiddenIndex[0]][hiddenIndex[1]];
-                switchTile(clicked, hidden);
-            }
-            //same column, adjacent row
-            else if (clickedIndex[1] == hiddenIndex[1] && absRowDiff == 1){
-                Tile clicked = tiles[clickedIndex[0]][clickedIndex[1]];
-                Tile hidden = tiles[hiddenIndex[0]][hiddenIndex[1]];
-                switchTile(clicked, hidden);
-            }
-        }
-    }
-    private void switchTile(Tile tileOne, Tile tileTwo){
+
+    private void switchTile(Tile tileOne, Tile tileTwo) {
         int tileOneValue = tileOne.getNumber();
         int tileTwoValue = tileTwo.getNumber();
         tileOne.updateButton(tileTwoValue);
         tileTwo.updateButton(tileOneValue);
-        if (isSolved()){
+        if (isSolved()) {
             victoryScreen();
         }
     }
-    public void victoryScreen(){
+
+    public void victoryScreen() {
         JOptionPane.showMessageDialog(null, "Congratulations you solved it!");
+    }
 
-        }
-
-    private boolean isSolved(){
+    private boolean isSolved() {
         int[] hiddenIndex = searchArray("16");
-        if (hiddenIndex[0]==3 && hiddenIndex[1] == 3){
+        if (hiddenIndex[0] == 3 && hiddenIndex[1] == 3) {
             for (int i = 0; i < tiles.length; i++) {
                 for (int j = 0; j < tiles.length; j++) {
                     if (tiles[i][j].getNumber() != (i * 4) + j + 1) {
@@ -136,8 +114,33 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
         } else {
             return false;
         }
-
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == resetButton) {
+            shuffleTiles();
+        }
+        if (e.getSource() instanceof JButton button && e.getSource() != resetButton) {
+            int[] clickedIndex = searchArray(button.getText());
+            int[] hiddenIndex = searchArray("16");
+            int absColumnDiff = Math.abs(hiddenIndex[1] - clickedIndex[1]);
+            int absRowDiff = Math.abs(hiddenIndex[0] - clickedIndex[0]);
+            //same row, adjacent column
+            if (clickedIndex[0] == hiddenIndex[0] && absColumnDiff == 1) {
+                Tile clicked = tiles[clickedIndex[0]][clickedIndex[1]];
+                Tile hidden = tiles[hiddenIndex[0]][hiddenIndex[1]];
+                switchTile(clicked, hidden);
+            }
+            //same column, adjacent row
+            else if (clickedIndex[1] == hiddenIndex[1] && absRowDiff == 1) {
+                Tile clicked = tiles[clickedIndex[0]][clickedIndex[1]];
+                Tile hidden = tiles[hiddenIndex[0]][hiddenIndex[1]];
+                switchTile(clicked, hidden);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         new FifteenPuzzle();
 
