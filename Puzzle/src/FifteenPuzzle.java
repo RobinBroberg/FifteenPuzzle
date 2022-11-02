@@ -8,7 +8,6 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
 
     private Tile[][] tiles = new Tile[4][4];
     private final JPanel panel = new JPanel();
-    private final JPanel southPanel = new JPanel();
     private final JButton resetButton = new JButton("RESET");
     private final JButton winButton = new JButton("WIN");
     private final int randomOne = ThreadLocalRandom.current().nextInt(1, 4);
@@ -21,6 +20,7 @@ public class FifteenPuzzle extends JFrame implements ActionListener {
         panel.setLayout(new GridLayout(4, 4));
         tiles = makeTiles();
         add(panel);
+        JPanel southPanel = new JPanel();
         add(southPanel, BorderLayout.SOUTH);
         southPanel.add(resetButton);
         southPanel.add(winButton);
